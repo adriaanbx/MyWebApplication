@@ -2,7 +2,7 @@
 using System.Xml.Serialization;
 using System.Collections.Generic;
 
-namespace MyWebApplication.Models
+namespace SharedCode.Models
 {
 	[XmlRoot(ElementName = "Sender")]
 	public class Sender

@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Net.Http.Headers;
 using System.Web.Http.Description;
-using MyWebApplication.Areas.HelpPage.ModelDescriptions;
+using ReportGenerator.Areas.HelpPage.ModelDescriptions;
 
-namespace MyWebApplication.Areas.HelpPage.Models
+namespace ReportGenerator.Areas.HelpPage.Models
 {
     /// <summary>
     /// The model that represents an API displayed on the help page.

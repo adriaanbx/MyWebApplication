@@ -1,10 +1,10 @@
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
-using MyWebApplication.Areas.HelpPage.ModelDescriptions;
-using MyWebApplication.Areas.HelpPage.Models;
+using ReportGenerator.Areas.HelpPage.ModelDescriptions;
+using ReportGenerator.Areas.HelpPage.Models;
 
-namespace MyWebApplication.Areas.HelpPage.Controllers
+namespace ReportGenerator.Areas.HelpPage.Controllers
 {
     /// <summary>
     /// The controller that will handle requests for the help page.

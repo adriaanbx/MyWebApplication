@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace MyWebApplication
+namespace ReportGenerator
 {
     public class BundleConfig
     {

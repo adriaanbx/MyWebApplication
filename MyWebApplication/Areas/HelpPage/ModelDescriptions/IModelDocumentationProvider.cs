@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace MyWebApplication.Areas.HelpPage.ModelDescriptions
+namespace ReportGenerator.Areas.HelpPage.ModelDescriptions
 {
     public interface IModelDocumentationProvider
     {
