@@ -51,7 +51,7 @@ namespace SharedCode
             return Encoding.Default.GetString(arrBytes);
         }
 
-        private static object DeserializeFromXml(this byte[] arrBytes, Envelope message)
+        public static object DeSerializeFromXml(this byte[] arrBytes, Type type)
         {
             MemoryStream memoryStream = new MemoryStream();
             memoryStream.Write(arrBytes, 0, arrBytes.Length);
