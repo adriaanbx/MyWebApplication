@@ -10,7 +10,7 @@ using System.Xml.Serialization;
 
 namespace SharedCode.Validation
 {
-    class MessageValidation
+    public class MessageValidation
     {
         public static string OutputType { get; private set; }
         public static string InputType { get; private set; }
@@ -81,7 +81,7 @@ namespace SharedCode.Validation
                     using (XmlReader reader = XmlReader.Create(input, settings))
                     {
                         XmlSerializer ser = new XmlSerializer(typeof(Models.TempUnemployment.Envelope));
-                        result = (Models.TempUnemployment.Envelope)ser.Deserialize(reader,encoding);
+                        result = (Models.TempUnemployment.Envelope)ser.Deserialize(reader);
                     }
                 }
                 return result;

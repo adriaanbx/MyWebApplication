@@ -70,7 +70,7 @@ namespace SharedCode
 
         public static object? DeSerializeFromXmlAndValidate(this byte[] arrBytes, Type type)
         {
-            string _namespace = type.GetType().Namespace;
+            string _namespace = type.Namespace;
 
             MemoryStream memoryStream = new MemoryStream();
             memoryStream.Write(arrBytes, 0, arrBytes.Length);

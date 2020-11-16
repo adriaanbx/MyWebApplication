@@ -7,6 +7,7 @@ using RabbitMQ.Client;
 using SharedCode;
 using SharedCode.Models.Payslip;
 using SharedCode.Models.TempUnemployment;
+using SharedCode.Validation;
 
 
 
@@ -66,23 +67,49 @@ namespace ReportGeneratorConsumer.RabbitMQ
                         var message = eventArgs.Body.DeSerializeFromXmlAndValidate(t);
                         var routingKey = eventArgs.RoutingKey;
 
-                        if (message != null && message.GetType() == typeof(SharedCode.Models.Payslip.Envelope))
+                        if (message != null)
                         {
-                            var payslip = (SharedCode.Models.Payslip.Envelope)message;
-                            Console.WriteLine("--- Report Generation - Routing Key <{0}> : ReportType <{1}> : Sender <{2}>", routingKey, payslip.Payload.GenerateDocument.OutputType, payslip.Sender.Name);
-                        }
-                        else if (message != null && message.GetType() == typeof(TempUnemployment))
-                        {
-                            TempUnemployment tempUnemployment = (TempUnemployment)message;
-                            Console.WriteLine("--- Report Generation - Routing Key <{0}> : ReportType <{1}> : Sender <{2}>", routingKey, tempUnemployment.Envelope.Payload.GenerateDocument.OutputType, tempUnemployment.Envelope.Sender.Name);
-
+                            CreateReport(message, MessageValidation.OutputType);
                         }
 
                         channel.BasicAck(eventArgs.DeliveryTag, false);
-
                     }
                 }
             }
+        }
+
+        private void CreateReport(object message, string outputType)
+        {
+            if (message.GetType() == typeof(SharedCode.Models.Payslip.Envelope))
+            {
+                var payslip = (SharedCode.Models.Payslip.Envelope)message;
+                SendGeneratedReport(payslip);
+                Console.WriteLine("--- Report Generation - ReportType <{0}> : Sender <{1}>", payslip.Payload.GenerateDocument.OutputType, payslip.Sender.Name);
+            }
+            else if (message.GetType() == typeof(TempUnemployment))
+            {
+                var tempUnemployment = (SharedCode.Models.TempUnemployment.Envelope)message;
+                SendGeneratedReport(tempUnemployment);
+                Console.WriteLine("--- Report Generation - ReportType <{0}> : Sender <{1}>", tempUnemployment.Payload.GenerateDocument.OutputType, tempUnemployment.Sender.Name);
+            }
+
+
+            //TODO implement code
+            //Zie ReportGeneratorService
+            throw new NotImplementedException();
+        }
+
+
+        private void SendGeneratedReport(SharedCode.Models.Payslip.Envelope message)
+        {
+            RabbitMQPublisher client = new RabbitMQPublisher();
+            client.SendReport(message);
+        }
+
+        private void SendGeneratedReport(SharedCode.Models.TempUnemployment.Envelope message)
+        {
+            RabbitMQPublisher client = new RabbitMQPublisher();
+            //client.SendReport(message);
         }
     }
 }
