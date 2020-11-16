@@ -1,0 +1,104 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Envelope">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Sender">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="Application"/>
+              <xs:element type="xs:string" name="Name"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Payload">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="GenerateDocument">
+                <xs:complexType>
+                  <xs:sequence>
+                    <xs:element name="OutputType">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:enumeration value="HTML"/>
+								<xs:enumeration value="XML"/>
+								<xs:enumeration value="PDF"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+                    <xs:element name="Parameters">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="InputType" fixed="Loonbrief"/>
+                          <xs:element name="Werknemer_gegevens">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:string" name="Naam"/>
+                                <xs:element type="xs:string" name="Voornaam"/>
+                                <xs:element name="Rijksregisternummer">
+									<xs:simpleType>
+										<xs:restriction base="xs:string">
+											<xs:pattern value="[0-9]{11}"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+                                <xs:element name="Adres">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element type="xs:string" name="Straat"/>
+                                      <xs:element type="xs:positiveInteger" name="Huisnummer"/>
+                                      <xs:element type="xs:string" name="Bus"/>
+                                      <xs:element type="xs:string" name="Postcode"/>
+                                      <xs:element type="xs:string" name="Plaats"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element type="xs:string" name="Burgelijke_staat"/>
+									
+                                <xs:element name="Personen_ten_laste">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element type="xs:byte" name="Echtgenoot"/>
+                                      <xs:element type="xs:byte" name="Gehandicapt_echtgenoot"/>
+                                      <xs:element type="xs:byte" name="Kinderen"/>
+                                      <xs:element type="xs:byte" name="Gehandicapt_kinderen"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element type="xs:date" name="Indienst_datum"/>
+                                <xs:element name="Uitdienst_datum" minOccurs="0" nillable="true">
+									<xs:simpleType>
+										<xs:list itemType="xs:date" />
+									</xs:simpleType>
+								</xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element name="Werkgever_gegevens">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:string" name="Naam"/>
+                                <xs:element name="RSZ_nummer">
+									<xs:simpleType>
+										<xs:restriction base="xs:string">
+											<xs:pattern value="[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9][0-9][0-9][0-9]-[0-9][0-9]"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+                                <xs:element type="xs:string" name="Kinderbijslag"/>
+                                <xs:element type="xs:string" name="Verzekering"/>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

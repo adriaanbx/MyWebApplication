@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using RabbitMQ.Client;
 using SharedCode;
-using SharedCode.Models;
+using SharedCode.Models.Payslip;
+using SharedCode.Models.TempUnemployment;
+
 
 namespace ReportGeneratorConsumer.RabbitMQ
 {
@@ -50,7 +52,8 @@ namespace ReportGeneratorConsumer.RabbitMQ
             _connection.Close();
         }
 
-        public void SendReport(Envelope message)
+        //TODO 2 apparte publishers maken voor de twee rapporten
+        public void SendReport(SharedCode.Models.Payslip.Envelope message)
         {
             SendMessage(message.SerializeIntoXml(), "generatedReport");
             Console.WriteLine("Report Type {0}, from sender {1}", message.Payload.GenerateDocument.OutputType,

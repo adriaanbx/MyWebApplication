@@ -4,7 +4,9 @@ using System.Linq;
 using System.Web;
 using RabbitMQ.Client;
 using SharedCode;
-using SharedCode.Models;
+using SharedCode.Models.Payslip;
+using SharedCode.Models.TempUnemployment;
+
 
 namespace ReportGenerator.RabbitMQ
 {
@@ -38,7 +40,7 @@ namespace ReportGenerator.RabbitMQ
             _model.ExchangeDeclare(ExchangeName, "topic");
 
             _model.QueueDeclare(ReportGeneratorQueueName, true, false, false, null);
-            
+
 
             _model.QueueBind(ReportGeneratorQueueName, ExchangeName, "reportGenerator");
 
@@ -49,16 +51,34 @@ namespace ReportGenerator.RabbitMQ
             _connection.Close();
         }
 
-        public void SendReport(Envelope message)
+        public void SendReport(object message)
         {
-            SendMessage(message.SerializeIntoXml(), "reportGenerator");
-            Console.WriteLine(" Report Sent {0}, from sender {1}", message.Payload,
-                message.Sender);
+            Type type = message.GetType();
+            SendMessage(message.SerializeIntoXml(), "reportGenerator", type);
+
+            if (type == typeof(SharedCode.Models.Payslip.Envelope))
+            {
+                SharedCode.Models.Payslip.Envelope payslip = (SharedCode.Models.Payslip.Envelope)message;
+                Console.WriteLine(" Report Sent {0}, from sender {1}", payslip.Payload, payslip.Sender);
+            }
+            else if (type == typeof(TempUnemployment))
+            {
+                TempUnemployment tempUnemployment = (TempUnemployment)message;
+                Console.WriteLine(" Report Sent {0}, from sender {1}", tempUnemployment.Envelope.Payload, tempUnemployment.Envelope.Sender);
+            }
+
+
+
+
         }
 
-        public void SendMessage(byte[] message, string routingKey)
+        public void SendMessage(byte[] message, string routingKey, Type type)
         {
-            _model.BasicPublish(ExchangeName, routingKey, null, message);
+            IBasicProperties basicProperties = _model.CreateBasicProperties();
+            //basicProperties.SetPersistent(true);
+            basicProperties.ContentType = "text/xml";
+            basicProperties.Type = type.AssemblyQualifiedName;
+            _model.BasicPublish(ExchangeName, routingKey, basicProperties, message);
         }
     }
 }

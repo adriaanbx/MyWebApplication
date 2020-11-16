@@ -6,7 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
 using Newtonsoft.Json;
-using SharedCode.Models;
+using SharedCode.Models.Payslip;
+using SharedCode.Models.TempUnemployment;
+using SharedCode.Validation;
 
 namespace SharedCode
 {
@@ -53,12 +55,33 @@ namespace SharedCode
 
         public static object DeSerializeFromXml(this byte[] arrBytes, Type type)
         {
+            string _namespace = type.Namespace;
+
             MemoryStream memoryStream = new MemoryStream();
             memoryStream.Write(arrBytes, 0, arrBytes.Length);
             memoryStream.Seek(0, SeekOrigin.Begin);
-            XmlSerializer xmlSerialiser = new XmlSerializer(typeof(Envelope));
-            return xmlSerialiser.Deserialize(memoryStream) as Envelope;
+            XmlSerializer xmlSerialiser = new XmlSerializer(type);
+
+            if (_namespace.Contains("Payslip"))
+                return xmlSerialiser.Deserialize(memoryStream) as SharedCode.Models.Payslip.Envelope;
+
+            return xmlSerialiser.Deserialize(memoryStream) as SharedCode.Models.TempUnemployment.Envelope;
         }
+
+        public static object? DeSerializeFromXmlAndValidate(this byte[] arrBytes, Type type)
+        {
+            string _namespace = type.GetType().Namespace;
+
+            MemoryStream memoryStream = new MemoryStream();
+            memoryStream.Write(arrBytes, 0, arrBytes.Length);
+            memoryStream.Seek(0, SeekOrigin.Begin);
+
+            return MessageValidation.Validate(memoryStream);
+
+
+        }
+
+
 
         #endregion
     }

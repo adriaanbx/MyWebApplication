@@ -5,7 +5,9 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
-using SharedCode.Models;
+
+using SharedCode.Models.Payslip;
+using SharedCode.Models.TempUnemployment;
 using ReportGenerator.RabbitMQ;
 
 
@@ -14,7 +16,8 @@ namespace ReportGenerator.Controllers
     public class QueeReportGeneratorController : ApiController
     {
         // POST api/message
-        public IHttpActionResult Post([FromBody] Envelope message)
+        [HttpPost]
+        public IHttpActionResult Payslip([FromBody] SharedCode.Models.Payslip.Envelope message)
         {
             try
             {

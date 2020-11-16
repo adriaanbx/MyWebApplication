@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Envelope xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="tijdelijke_werkloosheid.xsd">
+	<Sender>
+		<Application>b320a38c-f810-4273-94c3-967e6969a18e</Application>
+		<Name>Wannes</Name>
+	</Sender>
+	<Payload>
+		<GenerateDocument>
+			<OutputType>XML</OutputType>
+			<Parameters>
+				<InputType>Tijdelijke_werkloosheid</InputType>
+				<Aanvrager_gegevens>
+					<INSZ_nummer>74021701573</INSZ_nummer>
+					<Nationaliteit>Belg</Nationaliteit>
+					<Naam>Roeting</Naam>
+					<Voornaam>Gregory Ivon André</Voornaam>
+					<Adres>
+						<Straat>Nieuwstraat</Straat>
+						<Huisnummer>30</Huisnummer>
+						<Bus></Bus>
+						<Postcode>1830</Postcode>
+						<Plaats>Machelen</Plaats>
+					</Adres>
+					<Telefoon>+32478303287</Telefoon>
+					<E-mail>gregory.roeting@gmail.com</E-mail>
+				</Aanvrager_gegevens>
+				<Datum_aanvraag>2020-11-01</Datum_aanvraag>
+				<Uitbetaling_wijze>Overschrijving</Uitbetaling_wijze>
+				<Uitbetaling_BIC>GKCCBEBB</Uitbetaling_BIC>
+				<Uitbetaling_IBAN>BE21063177468003</Uitbetaling_IBAN>
+        
+			</Parameters>
+		</GenerateDocument>
+	</Payload>
+</Envelope>

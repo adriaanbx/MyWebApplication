@@ -73,12 +73,22 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
+    <None Include="XML\loonbrief.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="XML\tijdelijke_werkloosheid.xsd">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\SharedModels\SharedCode.csproj">
       <Project>{5b370739-37ed-405b-9427-8f93a8c34f95}</Project>
       <Name>SharedCode</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="XML\loonbrief.xml" />
+    <Content Include="XML\tijdelijke_werkloosheid.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

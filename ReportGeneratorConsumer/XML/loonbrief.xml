@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Envelope>
+	<Sender>
+		<Application>b320a38c-f810-4273-94c3-967e6969a18e</Application>
+		<Name>Wannes</Name>
+	</Sender>
+	<Payload>
+		<GenerateDocument>
+			<OutputType>HTML</OutputType>
+			<Parameters>
+				<InputType>Loonbrief</InputType>
+				<Werknemer_gegevens>
+					<Naam>Roeting</Naam>
+					<Voornaam>Gregory Ivon André</Voornaam>
+					<Rijksregisternummer>74021701573</Rijksregisternummer>
+					<Adres>
+						<Straat>Nieuwstraat</Straat>
+						<Huisnummer>30</Huisnummer>
+						<Bus></Bus>
+						<Postcode>1830</Postcode>
+						<Plaats>Machelen</Plaats>
+					</Adres>
+					<Burgelijke_staat>Ongehuwd</Burgelijke_staat>
+					<Personen_ten_laste>
+						<Echtgenoot>0</Echtgenoot>
+						<Gehandicapt_echtgenoot>0</Gehandicapt_echtgenoot>
+						<Kinderen>2</Kinderen>
+						<Gehandicapt_kinderen>0</Gehandicapt_kinderen>
+					</Personen_ten_laste>
+					<Indienst_datum>2018-09-04</Indienst_datum>
+					<Uitdienst_datum></Uitdienst_datum>
+				</Werknemer_gegevens>
+				<Werkgever_gegevens>
+					<Naam>Acom ib nv</Naam>
+					<RSZ_nummer>010-1749707-33</RSZ_nummer>
+					<Kinderbijslag>150879 Kidslife</Kinderbijslag>
+					<Verzekering>Baloise Insurance</Verzekering>
+				</Werkgever_gegevens>
+			</Parameters>
+		</GenerateDocument>
+	</Payload>
+</Envelope>

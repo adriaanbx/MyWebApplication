@@ -5,7 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 using RabbitMQ.Client;
 using SharedCode;
-using SharedCode.Models;
+using SharedCode.Models.Payslip;
+using SharedCode.Models.TempUnemployment;
+
 
 
 namespace ReportGeneratorConsumer.RabbitMQ
@@ -57,11 +59,27 @@ namespace ReportGeneratorConsumer.RabbitMQ
 
                     while (true)
                     {
-                        var ea = consumer.Queue.Dequeue();
-                        var message = (Envelope)ea.Body.DeSerializeFromXml(typeof(Envelope));
-                        var routingKey = ea.RoutingKey;
-                        channel.BasicAck(ea.DeliveryTag, false);
-                        Console.WriteLine("--- Report Generation - Routing Key <{0}> : ReportType <{1}> : Sender <{2}>", routingKey, message.Payload.GenerateDocument.OutputType, message.Sender.Name);
+
+                        var eventArgs = consumer.Queue.Dequeue();
+                        string objectType = eventArgs.BasicProperties.Type;
+                        Type t = Type.GetType(objectType);
+                        var message = eventArgs.Body.DeSerializeFromXmlAndValidate(t);
+                        var routingKey = eventArgs.RoutingKey;
+
+                        if (message != null && message.GetType() == typeof(SharedCode.Models.Payslip.Envelope))
+                        {
+                            var payslip = (SharedCode.Models.Payslip.Envelope)message;
+                            Console.WriteLine("--- Report Generation - Routing Key <{0}> : ReportType <{1}> : Sender <{2}>", routingKey, payslip.Payload.GenerateDocument.OutputType, payslip.Sender.Name);
+                        }
+                        else if (message != null && message.GetType() == typeof(TempUnemployment))
+                        {
+                            TempUnemployment tempUnemployment = (TempUnemployment)message;
+                            Console.WriteLine("--- Report Generation - Routing Key <{0}> : ReportType <{1}> : Sender <{2}>", routingKey, tempUnemployment.Envelope.Payload.GenerateDocument.OutputType, tempUnemployment.Envelope.Sender.Name);
+
+                        }
+
+                        channel.BasicAck(eventArgs.DeliveryTag, false);
+
                     }
                 }
             }

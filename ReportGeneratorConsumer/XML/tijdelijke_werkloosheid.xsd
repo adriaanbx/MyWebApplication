@@ -1,0 +1,77 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Envelope">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="Sender">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="Application"/>
+              <xs:element type="xs:string" name="Name"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="Payload">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="GenerateDocument">
+                <xs:complexType>
+                  <xs:sequence>
+                     <xs:element name="OutputType">
+						<xs:simpleType>
+							<xs:restriction base="xs:string">
+								<xs:enumeration value="HTML"/>
+								<xs:enumeration value="XML"/>
+								<xs:enumeration value="PDF"/>
+							</xs:restriction>
+						</xs:simpleType>
+					</xs:element>
+                    <xs:element name="Parameters">
+                      <xs:complexType>
+                        <xs:sequence>
+                          <xs:element type="xs:string" name="InputType" fixed="Tijdelijke_werkloosheid"/>
+                          <xs:element name="Aanvrager_gegevens">
+                            <xs:complexType>
+                              <xs:sequence>
+                                <xs:element type="xs:long" name="INSZ_nummer"/>
+                                <xs:element type="xs:string" name="Nationaliteit"/>
+                                <xs:element type="xs:string" name="Naam"/>
+                                <xs:element type="xs:string" name="Voornaam"/>
+                                <xs:element name="Adres">
+                                  <xs:complexType>
+                                    <xs:sequence>
+                                      <xs:element type="xs:string" name="Straat"/>
+                                      <xs:element type="xs:positiveInteger" name="Huisnummer"/>
+                                      <xs:element type="xs:string" name="Bus"/>
+                                      <xs:element type="xs:string" name="Postcode"/>
+                                      <xs:element type="xs:string" name="Plaats"/>
+                                    </xs:sequence>
+                                  </xs:complexType>
+                                </xs:element>
+                                <xs:element type="xs:string" name="Telefoon"/>
+                                <xs:element name="E-mail">
+									<xs:simpleType>
+										<xs:restriction base="xs:string">
+											<xs:pattern value="[_\-a-zA-Z0-9\.\+]+@[a-zA-Z0-9](\.?[\-a-zA-Z0-9]*[a-zA-Z0-9])*"/>
+										</xs:restriction>
+									</xs:simpleType>
+								</xs:element>
+                              </xs:sequence>
+                            </xs:complexType>
+                          </xs:element>
+                          <xs:element type="xs:date" name="Datum_aanvraag"/>
+                          <xs:element type="xs:string" name="Uitbetaling_wijze"/>
+                          <xs:element type="xs:string" name="Uitbetaling_BIC"/>
+                          <xs:element type="xs:string" name="Uitbetaling_IBAN"/>
+                        </xs:sequence>
+                      </xs:complexType>
+                    </xs:element>
+                  </xs:sequence>
+                </xs:complexType>
+              </xs:element>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
